@@ -1,5 +1,5 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
-import { DraggableData, Task } from "./interface";
+import { Task } from "./interface";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -20,8 +20,9 @@ function SortableTask({ id, task }: SortableTaskProps) {
     id,
     data: {
       type: "Task",
-      task: task, // Pass the full task object if needed later
-      columnId: "column-id-placeholder", // You would inject the real column ID here if needed
+      task: task,
+      // You can store the parent column ID here if needed for logic,
+      // but we are finding it by lookup in board.tsx now.
     },
   });
 

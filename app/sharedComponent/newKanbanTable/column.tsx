@@ -31,7 +31,7 @@ export default function Column({ column, onAddTask }: ColumnProps) {
     transition,
   };
 
-  // const taskIds = column.tasks.map((task: any) => task.id);
+  const taskIds = column.tasks.map((task: any) => task.id);
 
   return (
     <div
@@ -88,8 +88,19 @@ export default function Column({ column, onAddTask }: ColumnProps) {
       </div>
 
       {/* Column Content - Tasks */}
-      <SortableContext items={["test"]} strategy={verticalListSortingStrategy}>
-        <div className="flex-1 p-4 overflow-y-auto max-h-[calc(100vh-300px)]"></div>
+      <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
+        <div className="flex-1 p-4 overflow-y-auto max-h-[calc(100vh-300px)]">
+          {column.tasks.length > 0 ? (
+            column.tasks.map((task: any) => (
+              <SortableTask key={task.id} task={task} id={task.id} />
+            ))
+          ) : (
+            <div className="text-center p-8 border-2 border-dashed border-gray-300 rounded-lg">
+              <p className="text-gray-500 mb-2">No tasks yet</p>
+              <p className="text-sm text-gray-400">Drop tasks here</p>
+            </div>
+          )}
+        </div>
       </SortableContext>
 
       {/* Column Footer */}
