@@ -55,12 +55,8 @@ export const KanbanProvider = ({
   title: string;
   initalData: { cards: Card[]; column: Column[] };
 }) => {
-  const [columns, setColumns] = useState<Column[]>(
-    getStorage()?.columns || initalData.column
-  );
-  const [cards, setCards] = useState<Card[]>(
-    getStorage()?.cards || initalData.cards
-  );
+  const [columns, setColumns] = useState<Column[]>(initalData.column);
+  const [cards, setCards] = useState<Card[]>(initalData.cards);
   const [boardTitle, setBoardTitle] = useState(title ?? "");
 
   const addColumn = (column: Column) => setColumns((prev) => [...prev, column]);
@@ -83,8 +79,13 @@ export const KanbanProvider = ({
       columns,
       cards,
     };
-    localStorage.setItem("kanban", JSON.stringify(storage));
+    localStorage?.setItem?.("kanban", JSON.stringify(storage));
   }, [columns, cards]);
+
+  useEffect(() => {
+    setColumns(getStorage()?.columns || initalData.column);
+    setCards(getStorage()?.cards || initalData.cards);
+  }, []);
 
   return (
     <KanbanContext.Provider

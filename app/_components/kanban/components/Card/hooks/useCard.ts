@@ -5,7 +5,6 @@ import { Card } from "@/app/_components/kanban/types";
 export const useCard = (card: Card) => {
   const {
     editCardTitle,
-    editCardDescription,
     deleteCard,
   } = useContext(KanbanContext);
 
@@ -13,9 +12,6 @@ export const useCard = (card: Card) => {
     editCardTitle(newTitle, card.id);
   };
 
-  const handleDescriptionChange = (newDescription: string) => {
-    editCardDescription(newDescription, card.id);
-  };
 
   const handleDeleteCard = () => {
     deleteCard(card.id);
@@ -23,7 +19,6 @@ export const useCard = (card: Card) => {
 
   return {
     handleTitleChange,
-    handleDescriptionChange,
     handleDeleteCard,
   };
 };

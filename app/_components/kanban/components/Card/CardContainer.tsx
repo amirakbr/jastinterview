@@ -1,4 +1,3 @@
-import { Minus, GripVertical } from "lucide-react";
 import { Card } from "@/app/_components/kanban/types";
 import { useSortableConf } from "../../hooks/useSortableConf";
 import { useCard } from "./hooks/useCard";

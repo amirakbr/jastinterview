@@ -1,24 +1,16 @@
 import { Card } from "@/app/_components/kanban/types";
-import { X, Image } from "lucide-react";
+import { X } from "lucide-react";
 import { useCard } from "./hooks/useCard";
-import { useState } from "react";
+
 
 type Props = {
   closeDetails: () => void;
   card: Card;
 };
-
-const defaultText = "Click or drag image here to upload";
-const defaultTextDrag = "Drop image here";
 export const CardDetail = (props: Props) => {
-  const { title, srcImage, description, imageCovered } = props.card;
-  const [loadFileText, setLoadFileText] = useState(defaultText);
-  const { handleTitleChange, handleDescriptionChange } = useCard(props.card);
+  const { title} = props.card;
+  const { handleTitleChange } = useCard(props.card);
 
-  const stopDefaults = (e: React.DragEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-  };
 
   return (
     <div
