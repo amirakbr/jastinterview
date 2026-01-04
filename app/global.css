@@ -10,3 +10,8 @@ body {
   background-color: #2e7eaf;
   padding: 1rem;
 }
+
+button{
+  border: 0;
+  outline: 0;
+}

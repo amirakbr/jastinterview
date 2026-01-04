@@ -1,0 +1,152 @@
+.board-title {
+  color: white;
+}
+.kanban {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  align-items: center;
+}
+.add-column {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 16rem;
+  height: max-content;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  border-radius: 0.2rem;
+  background-color: rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease-in;
+  cursor: pointer;
+  border: 0;
+  transition: all 0.5s linear;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.233);
+  }
+}
+.sortableContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.columnsContainer {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  cursor: grab;
+}
+.column {
+  width: 15rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: #dfe1e6;
+  position: relative;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: 0.2rem;
+}
+.column-card {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0.5rem;
+}
+.column-card--container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.2rem 0.5rem;
+}
+.column-card--container-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.2rem;
+}
+.column-card--addNewCard {
+  padding: 0.3rem 0.5rem;
+  width: 100%;
+  background-color: transparent;
+  color: rgb(107, 119, 140);
+  transition: 0.25s ease-in;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  text-align: left;
+  font-size: 0.875rem;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.13);
+    color: rgb(23, 43, 77);
+  }
+}
+.column-dragging {
+  background-color: transparent;
+  width: 16rem;
+}
+.card-container {
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem 0.4rem 0.2rem;
+  border-radius: 0.4rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 0px;
+  transition: all 0.5s linear;
+  &:hover {
+    background-color: rgb(244, 245, 247);
+  }
+}
+.card--input-title {
+  padding: 0.5rem 0.4rem !important;
+  width: 100%;
+  &:focus {
+    padding: 0.5rem 0.4rem !important;
+  }
+}
+.column--input-title {
+  padding: 0.5rem 0.4rem !important;
+  width: 100%;
+  font-weight: 700;
+  &:focus {
+    padding: 0.5rem 0.4rem !important;
+  }
+}
+.card-dragging {
+  background-color: transparent;
+  width: 100%;
+  height: 5rem;
+}
+.card-container-box {
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.card-comment-button {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.2rem;
+  background-color: rgb(223 225 230);
+  color: rgb(23, 43, 77);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+  &:hover {
+    background-color: rgb(193, 199, 208);
+  }
+}

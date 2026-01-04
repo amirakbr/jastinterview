@@ -1,7 +1,7 @@
-import { useContext, useMemo, useState } from 'react'
-import { ActiveCard, Column } from '../types'
-import { ColumnContainer } from './ColumnContainer'
-import { createColumn } from '../utils/createColumn'
+import { useContext, useMemo, useState } from "react";
+import { ActiveCard, Column } from "@/app/_components/kanban/types";
+import { ColumnContainer } from "./ColumnContainer";
+import { createColumn } from "../utils/createColumn";
 import {
   DndContext,
   DragEndEvent,
@@ -10,39 +10,43 @@ import {
   DragStartEvent,
   PointerSensor,
   useSensor,
-  useSensors
-} from '@dnd-kit/core'
-import {
-  SortableContext,
-  arrayMove,
-} from '@dnd-kit/sortable'
-import { createPortal } from 'react-dom'
-import { PlusCircle } from 'lucide-react'
-import { CardContainer } from './Card/CardContainer'
-import { KanbanContext } from './store/KanbanProvider'
-import './kanban.scss'
+  useSensors,
+} from "@dnd-kit/core";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { PlusCircle } from "lucide-react";
+import { CardContainer } from "./Card/CardContainer";
+import { KanbanContext } from "./store/KanbanProvider";
+import "./kanban.scss";
+import Input from "../../input/input";
 
 export const KanbanBoard = () => {
-  const [activeColumn, setActiveColumn] = useState<Column | null>(null)
-  const [activeCard, setActiveCard] = useState<ActiveCard | null>(null)
-  const { columns, setCards, setColumns, addColumn } = useContext(KanbanContext)
-  const columnsId = useMemo(() => columns.map(col => col.id), [columns])
+  const [activeColumn, setActiveColumn] = useState<Column | null>(null);
+  const [activeCard, setActiveCard] = useState<ActiveCard | null>(null);
+  const {
+    columns,
+    setCards,
+    setColumns,
+    addColumn,
+    boardTitle,
+    setBoardTitle,
+  } = useContext(KanbanContext);
+  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   const createNewColumn = () => {
-    const columnToAdd = createColumn(columns.length + 1)
-    addColumn(columnToAdd)
-  }
+    const columnToAdd = createColumn(columns.length + 1);
+    addColumn(columnToAdd);
+  };
 
   const onDragStart = (event: DragStartEvent) => {
-    if (event.active.data.current?.type === 'Column') {
-      setActiveColumn(event.active.data.current.item)
-      return
+    if (event.active.data.current?.type === "Column") {
+      setActiveColumn(event.active.data.current.item);
+      return;
     }
     if (event.active.data.current?.type === "Card") {
       setActiveCard(event.active.data.current.item);
       return;
     }
-  }
+  };
 
   const onDragEnd = (event: DragEndEvent) => {
     setActiveColumn(null);
@@ -65,7 +69,7 @@ export const KanbanBoard = () => {
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
-  }
+  };
 
   const onDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
@@ -88,10 +92,12 @@ export const KanbanBoard = () => {
 
         if (cards[activeIndex].columnId != cards[overIndex].columnId) {
           cards[activeIndex].columnId = cards[overIndex].columnId;
-          console.log(
-            overIndex
-          )
-          return arrayMove(cards, activeIndex,  overIndex === 0 ? 0 : overIndex - 1);
+          console.log(overIndex);
+          return arrayMove(
+            cards,
+            activeIndex,
+            overIndex === 0 ? 0 : overIndex - 1
+          );
         }
 
         return arrayMove(cards, activeIndex, overIndex);
@@ -108,48 +114,52 @@ export const KanbanBoard = () => {
         return arrayMove(cards, activeIndex, activeIndex);
       });
     }
-  }
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 10 // 10px
-      }
+        distance: 10, // 10px
+      },
     })
-  )
+  );
 
   return (
-    <div className={`container`}>
-      <DndContext
-        sensors={sensors}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragOver={onDragOver}
-      >
-        <div className={`sortableContainer`}>
-          <SortableContext items={columnsId}>
-            <div className={`columnsContainer`}>
-              {columns.map((column) => (
-                <ColumnContainer key={column.id} column={column} />
-              ))}
-            </div>
-            <button
-              onClick={createNewColumn}
-              className="h-[60px] w-[350px] flex items-center justify-center gap-2 min-w-[350px] cursor-pointer ml-4 rounded-lg bg-mainBackgroundColor border-2 border-columnBackgroundColor"
-            >
-              <PlusCircle />
-              Add column
-            </button>
-          </SortableContext>
-        </div>
-        {createPortal(
+    <div className="kanban">
+      <Input
+        value={boardTitle}
+        onChange={({ currentTarget }) =>
+          setBoardTitle(currentTarget?.value ?? "")
+        }
+        type="string"
+        className="board-title"
+      />
+      <div className={`container`}>
+        <DndContext
+          sensors={sensors}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
+        >
+          <div className={`sortableContainer`}>
+            <SortableContext items={columnsId}>
+              <div className={`columnsContainer`}>
+                {columns.map((column) => (
+                  <ColumnContainer key={column.id} column={column} />
+                ))}
+              </div>
+              <button onClick={createNewColumn} className="add-column">
+                <PlusCircle />
+                Add column
+              </button>
+            </SortableContext>
+          </div>
           <DragOverlay>
             {activeColumn && <ColumnContainer column={activeColumn} />}
             {activeCard && <CardContainer card={activeCard} />}
-          </DragOverlay>,
-          document.body
-        )}
-      </DndContext>
+          </DragOverlay>
+        </DndContext>
+      </div>
     </div>
   );
-}
+};

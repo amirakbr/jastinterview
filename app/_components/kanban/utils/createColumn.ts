@@ -1,5 +1,5 @@
+import { Column } from '../types'
 import { generateId } from './generateId'
-import {Column} from "../types";
 
 export const createColumn = (columnNumber: number) : Column => {
   return {
