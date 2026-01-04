@@ -1,0 +1,4 @@
+:HL["/jastinterview/_next/static/chunks/ead7ea4ba3caa59c.css","style"]
+:HL["/jastinterview/_next/static/media/ce62453a442c7f35-s.p.a9507876.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/jastinterview/_next/static/chunks/29a6115abe870a90.css","style"]
+0:{"buildId":"c7fTJtGHkDEuZ2V4-GOX2","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
